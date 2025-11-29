@@ -1,0 +1,118 @@
+openapi: 3.0.3
+info:
+  title: Mobility REST API
+  description: API REST pour la mobilité intelligente dans la ville
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8081
+    description: Serveur local
+
+paths:
+  /bus-lines:
+    get:
+      summary: Liste de toutes les lignes de bus
+      responses:
+        '200':
+          description: Liste des lignes de bus
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BusLine'
+
+  /bus-lines/{lineId}:
+    get:
+      summary: Informations d’une ligne de bus spécifique
+      parameters:
+        - name: lineId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Informations de la ligne
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BusLine'
+        '404':
+          description: Ligne non trouvée
+
+  /trains:
+    get:
+      summary: Liste de tous les trains
+      responses:
+        '200':
+          description: Liste des trains
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Train'
+
+  /trains/{trainId}:
+    get:
+      summary: Informations d’un train spécifique
+      parameters:
+        - name: trainId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Informations du train
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Train'
+        '404':
+          description: Train non trouvé
+
+components:
+  schemas:
+    BusLine:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        startStation:
+          type: string
+        endStation:
+          type: string
+        status:
+          type: string
+          description: Statut du trafic (ex "normal", "retard", "annulé")
+      required:
+        - id
+        - name
+        - startStation
+        - endStation
+
+    Train:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        departure:
+          type: string
+          format: date-time
+        arrival:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Statut du train (ex "normal", "retard", "annulé")
+      required:
+        - id
+        - name
+        - departure
+        - arrival
