@@ -1,0 +1,114 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.enicarthage.emergency.grpc";
+option java_outer_classname = "EmergencyProto";
+
+package emergency;
+
+// Service de gestion des urgences
+service EmergencyService {
+  // Créer une alerte d'urgence
+  rpc CreateAlert (AlertRequest) returns (AlertResponse);
+
+  // Obtenir le statut d'une alerte
+  rpc GetAlertStatus (AlertStatusRequest) returns (AlertResponse);
+
+  // Mettre à jour le statut d'une alerte
+  rpc UpdateAlertStatus (UpdateStatusRequest) returns (AlertResponse);
+
+  // Lister toutes les alertes actives (streaming)
+  rpc StreamActiveAlerts (EmptyRequest) returns (stream AlertResponse);
+
+  // Dispatcher une équipe d'urgence
+  rpc DispatchTeam (DispatchRequest) returns (DispatchResponse);
+}
+
+// Types d'urgence
+enum EmergencyType {
+  ACCIDENT = 0;
+  FIRE = 1;
+  MEDICAL = 2;
+  CRIME = 3;
+  NATURAL_DISASTER = 4;
+  OTHER = 5;
+}
+
+// Priorité de l'urgence
+enum Priority {
+  LOW = 0; //priorite basse
+  MEDIUM = 1;
+  HIGH = 2;
+  CRITICAL = 3; //priorite critique
+}
+
+// Statut de l'alerte
+enum AlertStatus {
+  PENDING = 0; //en attente d'intervention
+  DISPATCHED = 1; //equipe envoyée
+  IN_PROGRESS = 2; //intervention en cours
+  RESOLVED = 3; //urgence résolue
+  CANCELLED = 4; //alerte annulée
+}
+
+// Localisation
+message Location {
+  double latitude = 1;
+  double longitude = 2;
+  string address = 3;
+  string zone = 4;
+}
+
+// Requête pour créer une alerte
+message AlertRequest {
+  EmergencyType type = 1;
+  Priority priority = 2;
+  string description = 3;
+  Location location = 4;
+  string reporter_name = 5;
+  string reporter_phone = 6;
+}
+
+// Réponse d'alerte
+message AlertResponse {
+  string alert_id = 1;
+  EmergencyType type = 2;
+  Priority priority = 3;
+  AlertStatus status = 4;
+  string description = 5;
+  Location location = 6;
+  string reporter_name = 7;
+  int64 timestamp = 8;
+  string assigned_team = 9;
+  int32 estimated_arrival_time = 10;
+}
+
+// Requête pour obtenir le statut
+message AlertStatusRequest {
+  string alert_id = 1;
+}
+
+// Requête pour mettre à jour le statut
+message UpdateStatusRequest {
+  string alert_id = 1;
+  AlertStatus new_status = 2;
+  string notes = 3;
+}
+
+// Requête vide
+message EmptyRequest {}
+
+// Requête de dispatch
+message DispatchRequest {
+  string alert_id = 1;
+  string team_id = 2;
+  int32 estimated_arrival_time = 3;
+}
+
+// Réponse de dispatch
+message DispatchResponse {
+  bool success = 1;
+  string message = 2;
+  string team_id = 3;
+  int32 estimated_arrival_time = 4;
+}
