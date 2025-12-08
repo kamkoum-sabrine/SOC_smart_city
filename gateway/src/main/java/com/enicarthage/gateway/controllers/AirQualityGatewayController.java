@@ -1,13 +1,12 @@
 package com.enicarthage.gateway.controllers;
 
-
 import com.enicarthage.airquality.xsd.GetAirQualityResponse;
 import com.enicarthage.gateway.clients.AirQualityClient;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/airquality")
 public class AirQualityGatewayController {
@@ -19,15 +18,7 @@ public class AirQualityGatewayController {
     }
 
     @GetMapping("/{zone}")
-    public Map<String, Object> getAirQuality(@PathVariable String zone) {
-        GetAirQualityResponse response = client.getAirQuality(zone);
-
-        Map<String, Object> map = new HashMap<>();
-        map.put("zone", response.getZone());
-        map.put("AQI", response.getAQI());
-        map.put("mainPollutant", response.getMainPollutant());
-
-        return map;
+    public GetAirQualityResponse getZone(@PathVariable String zone) {
+        return client.getAirQuality(zone);
     }
 }
-
