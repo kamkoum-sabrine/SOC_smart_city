@@ -2,7 +2,7 @@
 import soapRequest from "easy-soap-request";
 import { parseStringPromise } from "xml2js";
 
-const SOAP_URL = "http://localhost:8085/ws";
+const SOAP_URL = "http://localhost:8085/api/airquality";
 const HEADERS = { "Content-Type": "text/xml;charset=UTF-8", SOAPAction: "" };
 
 export async function getAirQuality(zone) {

@@ -43,7 +43,7 @@ public class WebServiceConfig extends WsConfigurerAdapter {
         return new SimpleXsdSchema(new ClassPathResource("airquality.xsd"));
     }
 
-    // Ajoutez un interceptor pour logger les requêtes (optionnel, pour debug)
+
     @Override
     public void addInterceptors(List<EndpointInterceptor> interceptors) {
         PayloadLoggingInterceptor loggingInterceptor = new PayloadLoggingInterceptor();
