@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  mobility-rest:
+    build:
+      context: ./mobility-rest
+      dockerfile: Dockerfile
+    container_name: mobility-rest
+    ports:
+      - "8081:8081"
+    networks:
+      - smartcity-net
+
+  airquality-soap:
+    build:
+      context: ./airquality-soap
+      dockerfile: Dockerfile
+    container_name: airquality-soap
+    ports:
+      - "8082:8082"
+    networks:
+      - smartcity-net
+
+  emergency-grpc:
+    build:
+      context: ./emergency-grpc
+      dockerfile: Dockerfile
+    container_name: emergency-grpc
+    ports:
+      - "8083:8083"     # REST gateway (si tu exposes 8083)
+      - "9090:9090"     # gRPC server
+    networks:
+      - smartcity-net
+
+  info-graphql:
+    build:
+      context: ./info-graphql
+      dockerfile: Dockerfile
+    container_name: info-graphql
+    ports:
+      - "8084:8084"
+    networks:
+      - smartcity-net
+
+networks:
+  smartcity-net:
+    driver: bridge
