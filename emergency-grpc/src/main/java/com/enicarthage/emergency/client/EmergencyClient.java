@@ -16,7 +16,7 @@ public class EmergencyClient {
         System.out.println("╚════════════════════════════════════════════════════════════╝\n");
 
         ManagedChannel channel = ManagedChannelBuilder
-                .forAddress("localhost", 9090)
+                .forAddress("localhost", 9091)
                 .usePlaintext()
                 .build();
 

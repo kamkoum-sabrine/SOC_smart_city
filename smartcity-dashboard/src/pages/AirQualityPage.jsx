@@ -6,19 +6,33 @@ export default function AirQualityPage() {
     const [zone, setZone] = useState("");
     const [result, setResult] = useState(null);
 
+    // const handleFetch = async () => {
+    //     try {
+    //         const data = await getAirQuality(zone);
+    //         setResult({
+    //             zone: data.zone[0],
+    //             aqi: parseInt(data.aQI[0]),
+    //             pollutant: data.mainPollutant[0]
+    //         });
+    //     } catch (err) {
+    //         console.error(err);
+    //         setResult(null);
+    //     }
+    // };
     const handleFetch = async () => {
         try {
             const data = await getAirQuality(zone);
             setResult({
-                zone: data.zone[0],
-                aqi: parseInt(data.aQI[0]),
-                pollutant: data.mainPollutant[0]
+                zone: data.zone,
+                aqi: data.aqi,
+                pollutant: data.mainPollutant
             });
         } catch (err) {
             console.error(err);
             setResult(null);
         }
     };
+
 
     return (
         <div style={{ padding: "2rem" }}>

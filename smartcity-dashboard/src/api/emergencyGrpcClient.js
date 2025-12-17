@@ -1,26 +1,20 @@
-import { EmergencyServiceClient } from "./generated/emergency_grpc_web_pb";
-import { EmergencyAlert } from "./generated/emergency_pb";
-
-const client = new EmergencyServiceClient("http://localhost:8085");
+import axios from "axios";
 
 export const createAlert = async (data) => {
-    return new Promise((resolve, reject) => {
-        const alert = new EmergencyAlert();
-        alert.setType(data.type);
-        alert.setPriority(data.priority);
-        alert.setDescription(data.description);
-        alert.setLatitude(data.latitude);
-        alert.setLongitude(data.longitude);
-        alert.setReportername(data.reporterName);
-        alert.setReporterphone(data.reporterPhone);
-
-        client.createAlert(alert, {}, (err, response) => {
-            if (err) reject(err);
-            else resolve({
-                alertId: response.getId(),
-                type: response.getType(),
-                priority: response.getPriority()
-            });
+    try {
+        const response = await axios.post("http://localhost:8085/api/emergency/alerts", {
+            type: data.type,
+            priority: data.priority,
+            description: data.description,
+            latitude: data.latitude,
+            longitude: data.longitude,
+            zone: data.zone,
+            address: data.address,
+            reporterName: data.reporterName,
+            reporterPhone: data.reporterPhone
         });
-    });
+        return response.data;
+    } catch (err) {
+        throw err;
+    }
 };
