@@ -37,7 +37,7 @@ const HEADERS = {
 
 export async function getAirQuality(zone) {
    const response = await axios.get(
-      `http://gateway:8085/api/airquality/${zone}`
+      `http://localhost:8085/api/airquality/${zone}`
    );
    return response.data;
 }

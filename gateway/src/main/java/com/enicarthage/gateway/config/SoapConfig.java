@@ -20,8 +20,7 @@ public class SoapConfig {
         WebServiceTemplate template = new WebServiceTemplate();
         template.setMarshaller(marshaller);
         template.setUnmarshaller(marshaller);
-        template.setDefaultUri("http://localhost:8082/ws");
+        template.setDefaultUri("http://airquality-soap:8082/ws");
         return template;
     }
 }
-

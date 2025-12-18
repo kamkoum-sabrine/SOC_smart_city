@@ -11,7 +11,7 @@ public class InfoGraphQLClient {
     private final WebClient webClient;
 
     public InfoGraphQLClient(WebClient.Builder builder) {
-        this.webClient = builder.baseUrl("http://localhost:8084/graphql").build();
+        this.webClient = builder.baseUrl("http://info-graphql:8084/graphql").build();
     }
 
     // Exécution d'une requête GraphQL générique

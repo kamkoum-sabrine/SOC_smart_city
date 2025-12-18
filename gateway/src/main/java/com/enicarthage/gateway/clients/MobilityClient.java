@@ -12,8 +12,7 @@ public class MobilityClient {
     private final WebClient web;
 
     public MobilityClient(WebClient.Builder builder) {
-        // TON SERVICE MOBILITY tourne sur : http://localhost:8081
-        this.web = builder.baseUrl("http://localhost:8081/api/lines").build();
+        this.web = builder.baseUrl("http://mobility-rest:8081/api/lines").build();
     }
 
     /**

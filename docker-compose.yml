@@ -6,8 +6,8 @@ services:
       dockerfile: Dockerfile
     container_name: frontend
     ports:
-      - "3000:3000"   # si npm start
-      # - "3000:80"   # si version nginx (prod)
+      #- "3000:3000"   # si npm start
+      - "3000:80"   # si version nginx (prod)
     depends_on:
       - gateway
   gateway:
