@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { planRoute } from "../api/graphqlClient";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography, Paper } from "@mui/material";
 
 export default function PlanRoutePage() {
     const [from, setFrom] = useState("");
@@ -45,16 +45,18 @@ export default function PlanRoutePage() {
             </div>
 
             {routeInfo && (
-                <div style={{ marginTop: "1rem" }}>
-                    <Typography><strong>Départ :</strong> {routeInfo.from}</Typography>
-                    <Typography><strong>Arrivée :</strong> {routeInfo.to}</Typography>
-                    <Typography><strong>Mode recommandé :</strong> {routeInfo.recommendedMode}</Typography>
-                    <Typography><strong>Raison :</strong> {routeInfo.reason}</Typography>
+                <Paper sx={{ mt: 3, p: 3 }}>
+                    <Typography variant="h6">Itinéraire recommandé</Typography>
+                    <Typography><b>Départ :</b> {routeInfo.from}</Typography>
+                    <Typography><b>Arrivée :</b> {routeInfo.to}</Typography>
+                    <Typography><b>Mode :</b> {routeInfo.recommendedMode}</Typography>
+                    <Typography><b>Raison :</b> {routeInfo.reason}</Typography>
                     <Typography>
-                        <strong>Lignes disponibles :</strong> {routeInfo.availableLines.join(", ")}
+                        <b>Lignes :</b> {routeInfo.availableLines.join(", ")}
                     </Typography>
-                </div>
+                </Paper>
             )}
+
         </div>
     );
 }

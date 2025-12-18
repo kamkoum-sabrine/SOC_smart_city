@@ -7,7 +7,8 @@ import {
     List,
     ListItem,
     ListItemText,
-    IconButton
+    IconButton,
+    Paper
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
@@ -82,21 +83,23 @@ export default function MobilityPage() {
 
             <List>
                 {lines.map(line => (
-                    <ListItem
-                        key={line.id}
-                        secondaryAction={
-                            <IconButton edge="end" onClick={() => handleDelete(line.id)}>
-                                <DeleteIcon />
-                            </IconButton>
-                        }
-                    >
-                        <ListItemText
-                            primary={`${line.code} - ${line.nom}`}
-                            secondary={`Horaires : ${line.horairesJson}`}
-                        />
-                    </ListItem>
+                    <Paper key={line.id} sx={{ mb: 1 }}>
+                        <ListItem
+                            secondaryAction={
+                                <IconButton color="error" onClick={() => handleDelete(line.id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            }
+                        >
+                            <ListItemText
+                                primary={`${line.code} - ${line.nom}`}
+                                secondary={`Horaires : ${line.horairesJson}`}
+                            />
+                        </ListItem>
+                    </Paper>
                 ))}
             </List>
+
         </div>
     );
 }
