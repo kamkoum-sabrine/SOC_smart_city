@@ -1,0 +1,11 @@
+package com.enicarthage;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class InfoGraphqlApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(InfoGraphqlApplication.class, args);
+    }
+}

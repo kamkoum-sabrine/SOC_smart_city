@@ -1,0 +1,33 @@
+"""SDL for Info GraphQL service — documentation required by the spec (SDL)."""
+type ZoneInfo {
+  zone: String!
+  aqi: Int
+  mainPollutant: String
+  transportAvailable: Boolean
+  transportLines: [String]
+  activeEmergencies: Int
+}
+
+type RouteRecommendation {
+  from: String!
+  to: String!
+  recommendedMode: String!
+  reason: String
+  availableLines: [String]
+}
+
+type Query {
+  # Get consolidated info for a zone (calls SOAP/REST/gRPC/orchestrator)
+  zoneInfo(zone: String!): ZoneInfo
+
+  # Search zones with filters
+  zones(filter: String, minAqi: Int): [ZoneInfo!]!
+
+  # Plan a route with orchestration example
+  planRoute(from: String!, to: String!, prefer: String): RouteRecommendation
+}
+
+type Mutation {
+  # Example mutation to trigger an emergency report via gRPC orchestrator
+  reportEmergency(type: String!, description: String!, latitude: Float!, longitude: Float!): String
+}

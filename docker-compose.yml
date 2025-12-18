@@ -1,0 +1,57 @@
+
+services:
+  smartcity-dashboard:
+    build:
+      context: ./smartcity-dashboard
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      #- "3000:3000"   # si npm start
+      - "3000:80"   # si version nginx (prod)
+    depends_on:
+      - gateway
+  gateway:
+    build:
+      context: ./gateway
+      dockerfile: Dockerfile
+    container_name: gateway
+    ports:
+      - "8085:8085"
+    depends_on:
+      - mobility-rest
+      - airquality-soap
+      - emergency-grpc
+      - info-graphql
+
+  mobility-rest:
+    build:
+      context: ./mobility-rest
+      dockerfile: Dockerfile
+    container_name: mobility-rest
+    ports:
+      - "8081:8081"
+
+  airquality-soap:
+    build:
+      context: ./airquality-soap
+      dockerfile: Dockerfile
+    container_name: airquality-soap
+    ports:
+      - "8082:8082"
+
+  emergency-grpc:
+    build:
+      context: ./emergency-grpc
+      dockerfile: Dockerfile
+    container_name: emergency-grpc
+    ports:
+      - "8083:8083"
+      - "9091:9091"
+
+  info-graphql:
+    build:
+      context: ./info-graphql
+      dockerfile: Dockerfile
+    container_name: info-graphql
+    ports:
+      - "8084:8084"
