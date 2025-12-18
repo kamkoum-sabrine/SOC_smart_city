@@ -1,6 +1,15 @@
-version: '3.9'
 
 services:
+  smartcity-dashboard:
+    build:
+      context: ./smartcity-dashboard
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:3000"   # si npm start
+      # - "3000:80"   # si version nginx (prod)
+    depends_on:
+      - gateway
   gateway:
     build:
       context: ./gateway

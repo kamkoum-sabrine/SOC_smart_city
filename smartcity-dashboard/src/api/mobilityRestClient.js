@@ -1,5 +1,5 @@
 // src/api/mobilityRestClient.js
-const API_BASE = "http://localhost:8085/gateway/mobility/lines";
+const API_BASE = "http://gateway:8085/gateway/mobility/lines";
 
 export async function getLines() {
     const res = await fetch(API_BASE);
